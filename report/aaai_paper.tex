@@ -1,0 +1,112 @@
+%File: anonymous-submission-latex-2026.tex
+\documentclass[letterpaper]{article}
+\usepackage{aaai2026}
+\usepackage{times}
+\usepackage{helvet}
+\usepackage{courier}
+\usepackage[hyphens]{url}
+\usepackage{graphicx}
+\urlstyle{rm}
+\def\UrlFont{\rm}
+\usepackage{natbib}
+\usepackage{caption}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\frenchspacing
+\setlength{\pdfpagewidth}{8.5in}
+\setlength{\pdfpageheight}{11in}
+
+\pdfinfo{
+/TemplateVersion (2026.1)
+}
+
+\title{Age-Based Community Detection in Mental Health Symptom Networks Using PHQ-9, GAD-7, and PSS-10}
+
+\author{
+Sakshi Singh\\
+Department of Data Science and Engineering, IISER Bhopal\\
+sakshis25@iiserb.ac.in
+}
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Mental health symptoms often co-occur in structured ways that may vary across demographic groups. This study constructs symptom networks using PHQ-9, GAD-7, and PSS-10 survey items collected from a public population-scale dataset and investigates how community structures differ across age groups. Weighted correlation networks were derived for each age group, thresholded for interpretability, and clustered using Louvain community detection. Partition similarity across groups was quantified using Adjusted Rand Index (ARI) and Normalized Mutual Information (NMI). Results indicate clear age-dependent differences: younger adults exhibit more fragmented symptom communities, whereas older adults show more integrated clusters, particularly between anxiety and depression. These findings highlight demographic heterogeneity in symptom organization and demonstrate the utility of network-based analysis in mental health research.
+\end{abstract}
+
+\section{Introduction}
+Symptom networks provide an alternative view of mental health by modeling disorders as interconnected indicators rather than independent diagnostic categories. Widely validated scales such as the PHQ-9 \citep{phq9}, GAD-7 \citep{gad7}, and PSS-10 \citep{pss10} offer structured ways to measure depression, anxiety, and perceived stress. Despite growing interest in network analysis, limited work has examined how these symptom structures vary across age groups within population-based survey data.
+
+This work investigates how symptom communities differ across age groups using correlation-based networks and Louvain clustering \citep{louvain2008}. We examine whether age influences modular structure—i.e., the grouping of symptoms into coherent clusters—and quantify structural similarity using ARI and NMI \citep{nmiARI}.
+
+\section{Dataset and Preprocessing}
+We use the publicly available dataset from Mendeley Data\footnote{https://data.mendeley.com/datasets/h4kk7nr2cs/1}, containing demographic attributes and responses to PSS-10, GAD-7, and PHQ-9.  
+Preprocessing steps included:
+\begin{itemize}
+    \item Renaming survey items to standard labels (e.g., PSS1–PSS10, PHQ1–PHQ9).
+    \item Computing age as $2022 -$ birth year.
+    \item Binning age into four groups: 18--25, 26--35, 36--50, 51+.
+    \item Median imputation for missing symptom scores.
+\end{itemize}
+
+\section{Methodology}
+\subsection{Correlation Networks}
+For each age group, we computed a Pearson correlation matrix using all 26 symptom variables (PHQ-9, GAD-7, PSS-10). To remove weak associations and improve interpretability, edges below $r<0.20$ were excluded. Networks were constructed using weighted undirected graphs.
+
+\subsection{Community Detection}
+Louvain community detection \citep{louvain2008} was applied on each age-group network. The algorithm maximizes modularity to identify densely connected symptom clusters.
+
+\subsection{Cross-Group Similarity Metrics}
+To quantify differences between age groups:
+\begin{itemize}
+    \item \textbf{Adjusted Rand Index (ARI)} — evaluates partition agreement while correcting for chance.
+    \item \textbf{Normalized Mutual Information (NMI)} — measures shared information between partitions.
+\end{itemize}
+
+Both metrics were computed pairwise across all age groups using the resulting cluster assignments.
+
+\section{Results}
+\subsection{Symptom Community Differences by Age}
+Across groups, depression, anxiety, and stress symptoms organized into 3–4 communities depending on age:
+
+\begin{itemize}
+    \item \textbf{18--25}: 4 communities — high fragmentation; stress items (PSS) split into multiple sub-clusters.
+    \item \textbf{26--35}: 4 communities — similar to younger group but with tighter PHQ and GAD cohesion.
+    \item \textbf{36--50}: 3 communities — stronger integration between GAD and PHQ symptoms.
+    \item \textbf{51+}: 3 communities — most compact structure; stress, anxiety, and depression increasingly intertwined.
+\end{itemize}
+
+\subsection{ARI and NMI Scores}
+Similarity between age groups is summarized in Table 1.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lcc}
+\hline
+\textbf{Age Groups} & \textbf{ARI} & \textbf{NMI} \\
+\hline
+18--25 vs 26--35 & 0.853 & 0.837 \\
+18--25 vs 36--50 & 0.698 & 0.669 \\
+18--25 vs 51+    & 0.585 & 0.561 \\
+26--35 vs 36--50 & 0.846 & 0.798 \\
+26--35 vs 51+    & 0.574 & 0.557 \\
+36--50 vs 51+    & 0.574 & 0.557 \\
+\hline
+\end{tabular}
+\caption{Cross-group similarity using ARI and NMI.}
+\end{table}
+
+The decline in similarity between younger and older groups indicates substantive structural shifts in symptom organization across the lifespan.
+
+\section{Conclusion}
+This study demonstrates that population-based PHQ-9, GAD-7, and PSS-10 symptom networks exhibit clear age-dependent modular differences. Younger adults show greater symptom fragmentation, whereas older groups exhibit more integrated anxiety–depression–stress communities. These findings emphasize that mental health symptom organization is not static across age and that demographic-aware modeling may strengthen screening and intervention design.
+
+\section*{Acknowledgments}
+We thank Dr.~Akash Anil for guidance throughout this work. We also acknowledge Mendeley Data for providing the publicly available dataset used in this analysis.
+
+\bibliography{references}
+
+\end{document}
