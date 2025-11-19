@@ -43,5 +43,4 @@ Similarity decreases as age differences increase—suggesting structural shifts 
 
 ---
 
-## Directory Structure
 
