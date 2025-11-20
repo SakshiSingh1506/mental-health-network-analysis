@@ -26,8 +26,10 @@
 \author{
 Sakshi Singh\\
 Department of Data Science and Engineering, IISER Bhopal\\
-sakshis25@iiserb.ac.in
+sakshis25@iiserb.ac.in\\[6pt]
+\small \textbf{Code Repository:} \url{https://github.com/SakshiSingh1506/mental-health-network-analysis}
 }
+
 
 
 \begin{document}
@@ -69,18 +71,25 @@ To quantify differences between age groups:
 Both metrics were computed pairwise across all age groups using the resulting cluster assignments.
 
 \section{Results}
+
 \subsection{Symptom Community Differences by Age}
-Across groups, depression, anxiety, and stress symptoms organized into 3–4 communities depending on age:
+
+Contrary to our initial expectation of finding 3–4 communities, the Louvain algorithm revealed that the symptom networks across all age groups form \textbf{only 2–3 communities}. This reflects the strong internal cohesion of the PSS, GAD, and PHQ scales, which tend to cluster together rather than splitting into many subgroups.
+
+The community structures obtained were:
 
 \begin{itemize}
-    \item \textbf{18--25}: 4 communities — high fragmentation; stress items (PSS) split into multiple sub-clusters.
-    \item \textbf{26--35}: 4 communities — similar to younger group but with tighter PHQ and GAD cohesion.
-    \item \textbf{36--50}: 3 communities — stronger integration between GAD and PHQ symptoms.
-    \item \textbf{51+}: 3 communities — most compact structure; stress, anxiety, and depression increasingly intertwined.
+    \item \textbf{18--25:} 3 communities — PSS items split into two subgroups while GAD and PHQ formed a unified cluster.
+    \item \textbf{26--35:} 2 communities — one cluster containing all PSS items, and another combining GAD and PHQ, showing high emotional co-regulation.
+    \item \textbf{36--50:} 2 communities — identical modular structure to the 26–35 group, indicating stable symptom organization in mid-adulthood.
+    \item \textbf{51+:} 3 communities — PSS items partially separate into two small clusters while GAD and PHQ remain tightly integrated.
 \end{itemize}
 
+Overall, younger adults (18–25) showed slightly more fragmentation of stress-related items, while adults above 26 years exhibited tighter integration of anxiety and depression symptoms.
+
 \subsection{ARI and NMI Scores}
-Similarity between age groups is summarized in Table 1.
+
+Similarity between age groups is summarized in Table 1. A key observation is the lower similarity between the 36–50 and 51+ groups.
 
 \begin{table}[h]
 \centering
@@ -89,9 +98,9 @@ Similarity between age groups is summarized in Table 1.
 \textbf{Age Groups} & \textbf{ARI} & \textbf{NMI} \\
 \hline
 18--25 vs 26--35 & 0.853 & 0.837 \\
-18--25 vs 36--50 & 0.698 & 0.669 \\
+18--25 vs 36--50 & 0.853 & 0.837 \\
 18--25 vs 51+    & 0.585 & 0.561 \\
-26--35 vs 36--50 & 0.846 & 0.798 \\
+26--35 vs 36--50 & 1.000 & 1.000 \\
 26--35 vs 51+    & 0.574 & 0.557 \\
 36--50 vs 51+    & 0.574 & 0.557 \\
 \hline
@@ -99,7 +108,16 @@ Similarity between age groups is summarized in Table 1.
 \caption{Cross-group similarity using ARI and NMI.}
 \end{table}
 
-The decline in similarity between younger and older groups indicates substantive structural shifts in symptom organization across the lifespan.
+\subsection{Why is 36--50 vs 51+ Similarity Low?}
+
+Although both groups contain only two or three communities, the \textbf{exact item assignments differ}. Specifically:
+\begin{itemize}
+    \item In the 36–50 group, all PSS items cluster together.
+    \item In the 51+ group, PSS items split into two smaller subclusters.
+\end{itemize}
+
+This structural reorganization reduces ARI/NMI values because even small differences in partition assignments significantly affect similarity metrics. The results suggest that stress symptoms become more differentiated in older adults, producing a lower similarity score with the midlife (36–50) group.
+
 
 \section{Conclusion}
 This study demonstrates that population-based PHQ-9, GAD-7, and PSS-10 symptom networks exhibit clear age-dependent modular differences. Younger adults show greater symptom fragmentation, whereas older groups exhibit more integrated anxiety–depression–stress communities. These findings emphasize that mental health symptom organization is not static across age and that demographic-aware modeling may strengthen screening and intervention design.
